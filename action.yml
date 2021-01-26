@@ -1,0 +1,14 @@
+name: 'Get Release'
+description: 'Get release by tag name and set upload_url output if exists'
+inputs:
+  tag:
+    description: 'release tag name'
+    required: true
+outputs:
+  upload_url:
+    description: 'url to upload assets'
+  not_found:
+    description: 'set to true if release is not found'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

@@ -1,0 +1,15 @@
+{
+  "name": "gh-actions-get-release",
+  "version": "0.0.3",
+  "description": "Get GitHub release upload url",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/ncc build index.js --license licenses.txt"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^2.2.0",
+    "@vercel/ncc": "^0.27.0"
+  }
+}
