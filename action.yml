@@ -1,4 +1,4 @@
-name: 'Get the upload URL for a release'
+name: 'Get the upload URL for a release firo'
 description: 'Get release by tag name and set upload_url output if exists'
 inputs:
   tag:
