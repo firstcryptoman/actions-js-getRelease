@@ -1,26 +1,30 @@
 const core = require('@actions/core');
-const { GitHub, context } = require('@actions/github');
+const github = require('@actions/github');
 
 async function run() {
   try {
-    const github = new GitHub(process.env.GITHUB_TOKEN);
-    const { owner: owner, repo: repo } = context.repo;
+    const context = github.context;
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+    const { owner, repo } = context.repo;
+
     const tag = core.getInput('tag', { required: true })
         .replace('refs/tags/', '');
 
-    const getReleaseResponse = await github.repos.getReleaseByTag({
+    const getReleaseResponse = await octokit.rest.repos.getReleaseByTag({
       owner,
       repo,
       tag
     });
 
     const {
-      data: { upload_url: uploadUrl }
+      data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl, name: name, body: body, draft: draft, prerelease: prerelease, author: author }
     } = getReleaseResponse;
 
-    core.setOutput('upload_url', uploadUrl);
-    core.info(`upload_url: ${uploadUrl}`);
+    console.log(`Got release info: '${releaseId}', '${htmlUrl}', '${uploadUrl}', '${name}', '${draft}', '${prerelease}', '${body}', '${author}'`);
+
+    core.setOutput("upload_url", uploadUrl);
   } catch (error) {
+    console.log(error);
     core.info(`err: ${error.message}`);
   }
 }

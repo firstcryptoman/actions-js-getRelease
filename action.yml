@@ -1,4 +1,4 @@
-name: 'Get Release'
+name: 'Get the upload URL for a release'
 description: 'Get release by tag name and set upload_url output if exists'
 inputs:
   tag:
@@ -6,9 +6,7 @@ inputs:
     required: true
 outputs:
   upload_url:
-    description: 'url to upload assets'
-  not_found:
-    description: 'set to true if release is not found'
+    description: 'The URL for uploading assets to the release'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
